@@ -54,7 +54,7 @@ void dkDongCo(float xungTrai, float xungPhai) {
     digitalWrite(dongCoTrai, HIGH);
   else
     digitalWrite(dongCoTrai, LOW);
-  if(xungTrai >=0 )
+  if(xungPhai >=0 )
     digitalWrite(dongCoPhai, HIGH);
   else
     digitalWrite(dongCoPhai, LOW);

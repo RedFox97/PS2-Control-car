@@ -32,78 +32,58 @@ void setup() {
 void loop() {
   // Bắt đầu đọc dữ liệu nhấn nút từ tay PS2
   ps2.read_gamepad();
-  // Tiến
-  if(ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {             
-    digitalWrite(dongCoTrai, LOW);
-    analogWrite(bamXungTrai, 250);
-    digitalWrite(dongCoPhai, HIGH);
-    analogWrite(bamXungPhai, 250);
-  }
-  // Lùi
-  if(!ps2.Button(PSB_PAD_UP) && ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {             
-    digitalWrite(dongCoTrai, HIGH);
-    analogWrite(bamXungTrai, 250);
-    digitalWrite(dongCoPhai, LOW);
-    analogWrite(bamXungPhai, 250);
-  }
   
-  // Quay trái
-  if(!ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {             
-    digitalWrite(dongCoTrai, HIGH);
-    analogWrite(bamXungTrai, 200);
-    digitalWrite(dongCoPhai, HIGH);
-    analogWrite(bamXungPhai, 200);
-  }
-  // Quay phải
-  if(!ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && ps2.Button(PSB_PAD_RIGHT)) {             
-    digitalWrite(dongCoTrai, LOW);
-    analogWrite(bamXungTrai, 200);
-    digitalWrite(dongCoPhai, LOW);
-    analogWrite(bamXungPhai, 200);
-  }
-  // Cua trái
-  if(ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {             
-    digitalWrite(dongCoTrai, LOW);
-    analogWrite(bamXungTrai, 60);
-    digitalWrite(dongCoPhai, HIGH);
-    analogWrite(bamXungPhai, 250);
-  }
-  // Cua phải
-  if(ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && ps2.Button(PSB_PAD_RIGHT)) {            
-    digitalWrite(dongCoTrai, LOW);
-    analogWrite(bamXungTrai, 250);
-    digitalWrite(dongCoPhai, HIGH);
-    analogWrite(bamXungPhai, 60);
-  }
-  // Lùi phải
-  if(!ps2.Button(PSB_PAD_UP) && ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && ps2.Button(PSB_PAD_RIGHT)) {            
-    digitalWrite(dongCoTrai, HIGH);
-    analogWrite(bamXungTrai, 250);
-    digitalWrite(dongCoPhai, LOW);
-    analogWrite(bamXungPhai, 60);
-  }
-  // Lùi trái
-  if(!ps2.Button(PSB_PAD_UP) && ps2.Button(PSB_PAD_DOWN) && ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {            
-    digitalWrite(dongCoTrai, HIGH);
-    analogWrite(bamXungTrai, 40);
-    digitalWrite(dongCoPhai, LOW);
-    analogWrite(bamXungPhai, 250);
-  }
-  // Dừng khi nhả các nút
-  if(!ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {
-    analogWrite(bamXungTrai, 0);
-    analogWrite(bamXungPhai, 0);
-  }
-  if(ps2.Button(PSB_R2))          // Bật tắt chế độ dò line
+  
+  if(ps2.ButtonPressed(PSB_R2))          // Bật tắt chế độ dò line
     doLine = 1 - doLine;
+  
   if(doLine) {
     chayDoLine();
+    Serial.println("doLine ON");
+  }
+  else {
+    // Tiến
+    if(ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {             
+      dkDongCo(250, 250);
+    }
+    // Lùi
+    if(!ps2.Button(PSB_PAD_UP) && ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {             
+      dkDongCo(-250, -250);
+    }
+    
+    // Quay trái
+    if(!ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {             
+      dkDongCo(-200, 200);
+    }
+    // Quay phải
+    if(!ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && ps2.Button(PSB_PAD_RIGHT)) {             
+      dkDongCo(200, -200);
+    }
+    // Cua trái
+    if(ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {             
+      dkDongCo(0, 250);
+    }
+    // Cua phải
+    if(ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && ps2.Button(PSB_PAD_RIGHT)) {            
+      dkDongCo(250, 0);
+    }
+    // Lùi phải
+    if(!ps2.Button(PSB_PAD_UP) && ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && ps2.Button(PSB_PAD_RIGHT)) {            
+      dkDongCo(-250, 0);
+    }
+    // Lùi trái
+    if(!ps2.Button(PSB_PAD_UP) && ps2.Button(PSB_PAD_DOWN) && ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {            
+      dkDongCo(0, -250);
+    }
+    // Dừng khi nhả các nút
+    if(!ps2.Button(PSB_PAD_UP) && !ps2.Button(PSB_PAD_DOWN) && !ps2.Button(PSB_PAD_LEFT) && !ps2.Button(PSB_PAD_RIGHT)) {
+      dkDongCo(0, 0);
+    }
   }
 }
 
 void chayDoLine() {
   trangThai = docDoLine(A0, A1, A2, A3, A4);     // Vị trí sensor tính từ trái sang phải,  Phát hiện line, trả về 0, Không có line, trả về 1
-  Serial.println(trangThai, BIN);
   if(trangThai == 0x1F || trangThai == 0 || trangThai == 0x0E)
     trangThai = trangThaiCu;
   else
@@ -132,16 +112,19 @@ void chayDoLine() {
 }
 
 void dkDongCo(float xungTrai, float xungPhai) {
+  Serial.print(xungTrai);
+  Serial.print("\t");
+  Serial.println(xungPhai);
   if(xungTrai >=0 )
     digitalWrite(dongCoTrai, HIGH);
   else
     digitalWrite(dongCoTrai, LOW);
-  if(xungTrai >=0 )
+  if(xungPhai >=0 )
     digitalWrite(dongCoPhai, HIGH);
   else
     digitalWrite(dongCoPhai, LOW);
-  analogWrite(bamXungTrai, xungTrai);
-  analogWrite(bamXungPhai, xungPhai);
+  analogWrite(bamXungTrai, abs(xungTrai));
+  analogWrite(bamXungPhai, abs(xungPhai));
 }
 
 uint8_t docDoLine(int sensor1, int sensor2, int sensor3, int sensor4, int sensor5) {
