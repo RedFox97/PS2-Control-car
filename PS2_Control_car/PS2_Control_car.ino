@@ -1,3 +1,11 @@
+//***************************************************************//
+//  Author       : RedFox                                        //
+//  Website      : lamchucongnghe.com                            //
+//  Fanpage      : fb.com//lamchucongnghevn                      //
+//  Shop sendo   : sendo.vn/shop/lamchucongnghe_com              //
+//  Shop shopee  : shopee.vn/lamchucongnghe                      //
+//***************************************************************//
+
 #include <PS2X_lib.h>
 
 #define PS2_DAT       6       // Data Pin
